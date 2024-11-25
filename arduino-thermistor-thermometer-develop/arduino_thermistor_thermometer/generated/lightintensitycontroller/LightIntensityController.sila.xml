@@ -1,0 +1,135 @@
+<Feature xmlns="http://www.sila-standard.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Category="instruments" FeatureVersion="1.1" MaturityLevel="Draft" Originator="de.unigreifswald" SiLA2Version="1.0" xsi:schemaLocation="http://www.sila-standard.org https://gitlab.com/SiLA2/sila_base/raw/master/schema/FeatureDefinition.xsd">
+  <Identifier>LightIntensityController</Identifier>
+  <DisplayName>Light Intensity Controller</DisplayName>
+  <Description>This is a simple example of a generic Feature for controlling and retrieving the LightIntensity.
+    A new target LightIntensity can be set anytime with the 'Control LightIntensity' Command.
+    The LightIntensity range has been limited to prevent major damages of a device.
+    In case the first target LightIntensity has not been reached, a ControlInterrupted Error should be thrown.</Description>
+  <!-- Commands -->
+  <Command>
+    <Identifier>ControlLightIntensity</Identifier>
+    <DisplayName>Control Light Intensity</DisplayName>
+    <Description>Control the LightIntensity gradually to a set target.
+      It is RECOMMENDED to use an oscillation free control system.</Description>
+    <Observable>Yes</Observable>
+    <Parameter>
+      <Identifier>TargetLightIntensity</Identifier>
+      <DisplayName>Target Light Intensity</DisplayName>
+      <Description>The target Light Intensity that the server will try to reach.
+        Note that the command might be completed at a LightIntensity that it evaluates to be close enough.
+        If the LightIntensity cannot be reached, a 'LightIntensity Not Reachable' error will be thrown.</Description>
+      <DataType>
+        <Constrained>
+          <DataType>
+            <Basic>Real</Basic>
+          </DataType>
+          <Constraints>
+            <Unit>
+              <Label>cd</Label>
+              <Factor>1</Factor>
+              <Offset>0</Offset>
+              <UnitComponent>
+                <SIUnit>Candela</SIUnit>
+                <Exponent>0</Exponent>
+              </UnitComponent>
+            </Unit>
+            <MinimalExclusive>0.0</MinimalExclusive>
+          </Constraints>
+        </Constrained>
+      </DataType>
+    </Parameter>
+    <DefinedExecutionErrors>
+      <Identifier>LightIntensityNotReachable</Identifier>
+      <Identifier>ControlInterrupted</Identifier>
+    </DefinedExecutionErrors>
+  </Command>
+  <!-- Properties -->
+  <Property>
+    <Identifier>CurrentLightIntensity</Identifier>
+    <DisplayName>Current Light Intensity</DisplayName>
+    <Description>The current Light Intensity as measured by the controller.</Description>
+    <Observable>Yes</Observable>
+    <DataType>
+      <Constrained>
+        <DataType>
+          <Basic>Real</Basic>
+        </DataType>
+        <Constraints>
+          <Unit>
+            <Label>cd</Label>
+            <Factor>1</Factor>
+            <Offset>0</Offset>
+            <UnitComponent>
+              <SIUnit>Candela</SIUnit>
+              <Exponent>0</Exponent>
+            </UnitComponent>
+          </Unit>
+          <MinimalExclusive>0.0</MinimalExclusive>
+        </Constraints>
+      </Constrained>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>TargetLightIntensity</Identifier>
+    <DisplayName>Target Light Intensity</DisplayName>
+    <Description>The Light Intensity as set by the ControlLightIntensity command.</Description>
+    <Observable>Yes</Observable>
+    <DataType>
+      <Constrained>
+        <DataType>
+          <Basic>Real</Basic>
+        </DataType>
+        <Constraints>
+          <Unit>
+            <Label>cd</Label>
+            <Factor>1</Factor>
+            <Offset>0</Offset>
+            <UnitComponent>
+              <SIUnit>Candela</SIUnit>
+              <Exponent>0</Exponent>
+            </UnitComponent>
+          </Unit>
+          <MinimalExclusive>0.0</MinimalExclusive>
+        </Constraints>
+      </Constrained>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>CurrentLightIntensityJSONLD</Identifier>
+    <DisplayName>Current Light Intensity JSONLD</DisplayName>
+    <Description>The current light intensity as measured by the controller in JSON-LD.</Description>
+    <Observable>Yes</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>TargetLightIntensityJSONLD</Identifier>
+    <DisplayName>Target Light Intensity JSONLD</DisplayName>
+    <Description>The light intensity as set by the ControlLightIntensity command in JSON-LD format.</Description>
+    <Observable>Yes</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>Metadata</Identifier>
+    <DisplayName>Metadata</DisplayName>
+    <Description>Additional information about the temperature metadata, e.g. units, range, etc. as JSON-LD context.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <!-- Defined Execution Errors-->
+  <DefinedExecutionError>
+    <Identifier>LightIntensityNotReachable</Identifier>
+    <DisplayName>LightIntensity Not Reachable</DisplayName>
+    <Description>The ambient conditions prohibit the device from reaching the target LightIntensity.</Description>
+  </DefinedExecutionError>
+  <DefinedExecutionError>
+    <Identifier>ControlInterrupted</Identifier>
+    <DisplayName>Control Interrupted</DisplayName>
+    <Description>The control of LightIntensity could not be finished as it has been interrupted by another 'Control LightIntensity' command.</Description>
+  </DefinedExecutionError>
+</Feature>

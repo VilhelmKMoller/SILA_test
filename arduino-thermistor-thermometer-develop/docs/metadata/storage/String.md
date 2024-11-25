@@ -1,0 +1,49 @@
+# Type: String
+
+
+
+
+_A character string_
+
+
+
+URI: [xsd:string](http://www.w3.org/2001/XMLSchema#string)
+
+* [base](https://w3id.org/linkml/base): str
+
+* [uri](https://w3id.org/linkml/uri): xsd:string
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/opensourcelab/storage_metadata_model
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | xsd:string |
+| native | oso:string |
+| exact | schema:Text |
+
+
+

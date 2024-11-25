@@ -1,0 +1,428 @@
+#_____________________________________________________________________
+#  :PROJECT: OpenSourceLab
+
+#  Device Metadata Model - information about the device, manufacturer, service, etc.
+
+#  to convert the model to a pydantic model, use:
+#    gen-pydantic device_metadata_model.yaml > ../arduino_thermistor_thermometer/device_metadata_model.py
+#    mind: bug in gen-pydantic List[str] -> List[Mode]
+#    gen-jsonld-context device_metadata_model.yaml > device_metadata_model.context.jsonld
+#    gen-doc  device_metadata_model.yaml  -d ../docs/metadata/device
+
+# :authors: mark doerr <mark.doerr@uni-greifswald.de>
+#________________________________________________________________________
+
+id: https://w3id.org/opensourcelab/device_metadata_model
+name: Device-Metadata-Model
+description: LinkML Device Metadata Model.
+license: https://creativecommons.org/publicdomain/zero/1.0/
+version: 0.0.1
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  sh: https://w3id.org/shacl/
+  dct: http://purl.org/dc/terms/
+  dcat: http://www.w3.org/ns/dcat#
+  dcmi: http://purl.org/dc/dcmitype/
+  dcatap: http://data.europa.eu/m8g/
+  UO: http://purl.obolibrary.org/obo/UO_
+  #PATO: http://purl.obolibrary.org/obo/PATO_
+  OM: http://www.ontology-of-units-of-measure.org/resource/om-2/
+  qudt: http://qudt.org/schema/qudt/
+  oso: http://w3id.org/oso/
+
+imports:
+  - linkml:types
+
+#default_range: string
+default_prefix: oso
+
+types:
+  NaN:
+    uri: xsd:float
+    base: float
+    description: Not-A-Number (NaN) is a numeric data type value representing an undefined or un-representable value.
+    notes: >-
+      If you are authoring schemas in LinkML YAML, the type is referenced with the lower case "integer".
+    exact_mappings:
+      - schema:NaN
+      - python:np.nan
+    repr: np.nan
+    
+
+# ---- Classes ----
+classes:
+  Person:
+    description: >-
+      "The User class represents a user of the SciDatS system."
+    class_uri: oso:entity
+    slots:
+      - name_last
+      - name_first
+      - email
+      - phone_numbers
+      - orcid
+
+  Company:
+    description: >-
+      "A class representing a Company, e.g., Manufacturer, Service provider."
+    class_uri: oso:entity/Company
+    slots:
+      - id
+      - name
+      - url
+      - email
+      - phone_numbers
+      - manufacturer_id
+
+  DeviceClass:
+    description: >-
+      "The Device Class / Type."
+    class_uri: oso:device/DeviceClass
+    slots:
+      - id
+      - name
+      - iri
+
+  DeviceMetaData:
+    description: >-
+      "The Device Metadata."
+    class_uri: oso:device/DeviceMetaData
+    slots:
+      - id
+      - timestamp
+      - description
+      - iri
+      - manufacturers
+      - device_class
+      - device_name
+      - model_name
+      - device_version
+      - device_serial_number
+      - part_number
+      - device_pid
+      - pac_id
+      - firmware_version
+      - device_manual_url
+      - device_quick_start_guide_url
+      - device_service_manual_url
+      - registration_number
+      - registration_barcode
+      - purchase_date
+      - end_of_warranty_date
+      - service_date_last
+      - service_date_next
+      - service_type
+      - service_description
+      - service_report
+      - service_provider
+      - service_engineer
+
+  ServiceInfo:
+    description: >-
+      "The Service Info."
+    class_uri: oso:device/ServiceInfo
+    slots:
+      - id
+      - timestamp
+      - name
+      - service_description
+      - service_type
+      - service_date_last
+      - service_date_next
+      - service_report
+      - service_provider
+      - service_engineer
+
+slots:
+  id:
+    description: >-
+      "The identifier of the resource."
+    identifier: true
+    range: string
+    required: true
+    slot_uri: http://purl.org/dc/terms/identifier
+  timestamp:
+    description: >-
+      "The timestamp of the measurement."
+    range: datetime
+    #unit:
+    #   ucum_code: s
+    #    #dimension: time
+    #    #quantity: timepoint
+    #   has_quantity_kind: PATO:0000125 ## mass
+    required: true
+    #ifabsent: nan()
+    slot_uri: http://purl.org/dc/terms/date
+  description:
+    description: >-
+      "A description of the calculation / measurement."
+    range: string
+    required: false
+    slot_uri: http://purl.org/dc/terms/description
+  name:
+    description: >-
+      "The name of an entity or object."
+    range: string
+    required: true
+    slot_uri: oso:entity/Name
+  iri:
+    description: >-
+      "The International Resource Identifier (IRI) of the entity."
+    range: string
+    required: false
+    slot_uri: oso:entity/IRI
+  manufacturer_id:
+    description: >-
+      "Unique ID of a manufacturer (MID)."
+    range: string
+    required: false
+    slot_uri: oso:device/ManufacturerID
+  manufacturers:
+    description: >-
+      "Manufacturer of the device."
+    range: Company
+    required: false
+    slot_uri: oso:device/Manufacturer
+    multivalued: true
+  product_type:
+    range: string
+    required: False
+    slot_uri: oso:device/product_type
+    description: "(manufacturer) product type"
+  product_no:
+    range: string
+    required: False
+    slot_uri: oso:device/product_no
+    description: "manufacturer product number"
+  type_barcode:
+    range: string
+    required: False
+    slot_uri: oso:device/type_barcode
+    description: "barcode of the general part type, not of a specific part !!."
+  device_class:
+    description: >-
+      "The Class / Type of the device. E.g. Gas Chromatograph, NMR. Thermometer, UV-spectrometer, MALDI-TOF-MS, HPLC, etc."
+    range: string
+    required: false
+    slot_uri: oso:measurement/deviceClass
+  device_name:
+    description: >-
+      "The full name of the device."
+    range: string
+    required: false
+    slot_uri: oso:measurement/deviceName
+  model_name:
+    description: >-
+      "The model name of the device."
+    range: string
+    required: false
+    slot_uri: oso:measurement/deviceModel
+  model_no:
+        range: string
+        required: False
+        slot_uri: oso:device/model_no
+        description: "model or part number (of e.g. manufacturer)"
+  device_version:
+    description: >-
+      "The version of the device."
+    range: string
+    required: false
+    slot_uri: oso:/device/version
+  device_serial_number:
+    description: >-
+      "The serial number of the device."
+    range: string
+    required: false
+    slot_uri: oso:device/serialNumber
+  part_number:
+    description: >-
+      "The part number."
+    range: string
+    required: false
+    slot_uri: oso:device/partNumber
+  device_pid:
+    description: >-
+      "The persistent and unique identifier (PID) of the device."
+    range: string
+    required: false
+    slot_uri: oso:/device/PID
+  pac_id:
+    description: >-
+      "The Publicly Addressable Content IDentifier (PAC-ID) is a unique identifier (s. https://github.com/ApiniLabs/PAC-ID) ."
+    range: string
+    required: false
+    slot_uri: oso:device/pacID
+  weight:
+    range: float
+    required: False
+    slot_uri: oso:device/weight
+    description: "part net weight "
+  energy_consumption:
+    range: float
+    required: False
+    slot_uri: oso:device/energy_consumption
+    description: "energy consumption in W"
+  spec_json:
+    range: string  # JSON
+    required: False
+    slot_uri: oso:device/spec_json
+    description: "part specifications in JSON-LD format"
+  icon:
+    range: string
+    required: False
+    slot_uri: oso:device/icon
+    description: "XML/SVG icon/logo/drawing of the part"
+  image:
+    range: string  # FileField
+    required: False
+    slot_uri: oso:device/image
+    description: "rel. path/filename to image"
+  shape:
+    range: string # ForeignKey - DeviceShape
+    required: False
+    slot_uri: oso:device/shape
+    description: "shape of Device"
+  resources_external:
+    range: string  # ManyToManyField - ExternalResource
+    required: False
+    multivalued: true
+    inlined_as_list: true
+    slot_uri: oso:device/resources_external
+    description: "external resources, like literature, websites, manuals, ..."
+  tags:
+    range: string  # ManyToManyField - Tag
+    required: False
+    multivalued: true
+    inlined_as_list: true
+    slot_uri: oso:device/tag
+    description: "e.g. manual"
+  firmware_version:
+    description: >-
+      "The version of the firmware of the device."
+    range: string
+    required: true
+    slot_uri: oso:device/deviceFirmwareVersion
+  device_manual_url:
+    description: >-
+      "An URL to the manual of the device."
+    range: string
+    required: false
+    slot_uri: oso:device/deviceManual
+  device_quick_start_guide_url:
+    description: >-
+      "An URL to the quick start guide of the device."
+    range: string
+    required: false
+    slot_uri: oso:device/deviceQuickStartGuide
+  device_service_manual_url:
+    description: >-
+      "An URL to the service manual of the device."
+    range: string
+    required: false
+    slot_uri: oso:device/deviceServiceManual
+  registration_number:
+    description: >-
+      "The registration number of the device, e.g. inventory number."
+    range: string
+    required: false
+    slot_uri: oso:device/deviceRegistrationNumber
+  registration_barcode:
+    description: >-
+      "The registration barcode of the device."
+    range: string
+    required: false
+    slot_uri: oso:device/deviceRegistrationBarcode
+  purchase_date:
+    description: >-
+      "The date of purchase of the device."
+    range: datetime
+    required: false
+    slot_uri: oso:device/devicePurchaseDate
+  end_of_warranty_date:
+    description: >-
+      "The end of warranty date of the device."
+    range: datetime
+    required: false
+    slot_uri: oso:device/deviceEndOfWarrantyDate
+  service_date_last:
+    description: >-
+      "The date of the last service."
+    range: datetime
+    required: false
+    slot_uri: oso:device/deviceServiceDateLast
+  service_date_next:
+    description: >-
+      "The date of the next service."
+    range: datetime
+    required: false
+    slot_uri: oso:device/deviceServiceDateNext
+  service_type:
+    description: >-
+      "The type of service, e.g., calibration, maintenance, repair."
+    range: string
+    required: false
+    slot_uri: oso:device/deviceServiceType
+  service_description:
+    description: >-
+      "A description of the service."
+    range: string
+    required: false
+    slot_uri: oso:device/deviceServiceDescription
+  service_report:
+    description: >-
+      "An URL to the service report."
+    range: string
+    required: false
+    slot_uri: oso:device/deviceServiceReport
+  service_provider:
+    description: >-
+      "The service provider, e.g. a company."
+    range: Company
+    required: false
+    slot_uri: oso:device/deviceServiceProvider
+  orcid:
+    description: >-
+      "The Open Researcher and Contributor ID [ORCID](https://orcid.org/) of a researcher."
+    range: string
+    #inlined_as_list: true
+    required: true
+    slot_uri: oso:entity/ORCID
+  name_last:
+    description: >-
+      "The last name of the user."
+    range: string
+    required: true
+    slot_uri: oso:entity/lastName
+  name_first:
+    description: >-
+      "The first name of the user."
+    range: string
+    required: true
+    slot_uri: oso:entity/firstName
+  email:
+    description: >-
+      "The email address of an entity, person or company."
+    range: string
+    required: false
+    slot_uri: oso:entity/email
+  url:
+    description: >-
+      "A Uniform Resource Locator (URL) of, e.g., an entity, person or company."
+    range: string
+    required: false
+    slot_uri: oso:entity/url
+  phone_numbers:
+    description: >-
+      "A list of phone numbers."
+    range: string
+    required: false
+    slot_uri: oso:entity/phoneNumber
+    multivalued: true
+  service_engineer:
+    description: >-
+      "The service engineer."
+    range: Person
+    required: false
+    slot_uri: oso:device/deviceServiceEngineer
+  

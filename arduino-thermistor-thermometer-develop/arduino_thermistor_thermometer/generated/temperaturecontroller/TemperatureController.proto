@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+import "SiLAFramework.proto";
+
+package sila2.de.unigreifswald.instruments.temperaturecontroller.v1;
+
+/* This is a simple example of a generic Feature for controlling and retrieving the temperature. A new target temperature can be set anytime with the 'Control Temperature' Command. The temperature range has been limited to prevent major damages of a device. In case the first target temperature has not been reached, a ControlInterrupted Error should be thrown. */
+service TemperatureController {
+  /* 
+      Control the temperature gradually to a set target.
+      It is RECOMMENDED to use an oscillation free control system.
+     */
+  rpc ControlTemperature (sila2.de.unigreifswald.instruments.temperaturecontroller.v1.ControlTemperature_Parameters) returns (sila2.org.silastandard.CommandConfirmation) {}
+  /* Monitor the state of ControlTemperature */
+  rpc ControlTemperature_Info (sila2.org.silastandard.CommandExecutionUUID) returns (stream sila2.org.silastandard.ExecutionInfo) {}
+  /* Retrieve result of ControlTemperature */
+  rpc ControlTemperature_Result(sila2.org.silastandard.CommandExecutionUUID) returns (sila2.de.unigreifswald.instruments.temperaturecontroller.v1.ControlTemperature_Responses) {}
+  /* The current temperature as measured by the controller. */
+  rpc Subscribe_CurrentTemperature (sila2.de.unigreifswald.instruments.temperaturecontroller.v1.Subscribe_CurrentTemperature_Parameters) returns (stream sila2.de.unigreifswald.instruments.temperaturecontroller.v1.Subscribe_CurrentTemperature_Responses) {}
+  /* The actual target temperature as set by the ControlTemperature command. */
+  rpc Subscribe_TargetTemperature (sila2.de.unigreifswald.instruments.temperaturecontroller.v1.Subscribe_TargetTemperature_Parameters) returns (stream sila2.de.unigreifswald.instruments.temperaturecontroller.v1.Subscribe_TargetTemperature_Responses) {}
+  /* The current temperature as measured by the controller in JSON-LD format. */
+  rpc Subscribe_CurrentTemperatureJSONLD (sila2.de.unigreifswald.instruments.temperaturecontroller.v1.Subscribe_CurrentTemperatureJSONLD_Parameters) returns (stream sila2.de.unigreifswald.instruments.temperaturecontroller.v1.Subscribe_CurrentTemperatureJSONLD_Responses) {}
+  /* The target temperature as set by the ControlTemperature command in JSON-LD format. */
+  rpc Subscribe_TargetTemperatureJSONLD (sila2.de.unigreifswald.instruments.temperaturecontroller.v1.Subscribe_TargetTemperatureJSONLD_Parameters) returns (stream sila2.de.unigreifswald.instruments.temperaturecontroller.v1.Subscribe_TargetTemperatureJSONLD_Responses) {}
+  /* Additional information about the temperature metadata, e.g. units, range, etc. as JSON-LD context . */
+  rpc Get_Metadata (sila2.de.unigreifswald.instruments.temperaturecontroller.v1.Get_Metadata_Parameters) returns (sila2.de.unigreifswald.instruments.temperaturecontroller.v1.Get_Metadata_Responses) {}
+}
+
+/* Parameters for ControlTemperature */
+message ControlTemperature_Parameters {
+  sila2.org.silastandard.Real TargetTemperature = 1;  /* The target temperature that the server will try to reach. Note that the command might be completed at a temperature that it evaluates to be close enough. If the temperature cannot be reached, a 'Temperature Not Reachable' error will be thrown. */
+}
+
+/* Responses of ControlTemperature */
+message ControlTemperature_Responses {
+}
+
+/* Parameters for CurrentTemperature */
+message Subscribe_CurrentTemperature_Parameters {
+}
+
+/* Responses of CurrentTemperature */
+message Subscribe_CurrentTemperature_Responses {
+  sila2.org.silastandard.Real CurrentTemperature = 1;  /* The current temperature as measured by the controller. */
+}
+
+/* Parameters for TargetTemperature */
+message Subscribe_TargetTemperature_Parameters {
+}
+
+/* Responses of TargetTemperature */
+message Subscribe_TargetTemperature_Responses {
+  sila2.org.silastandard.Real TargetTemperature = 1;  /* The actual target temperature as set by the ControlTemperature command. */
+}
+
+/* Parameters for CurrentTemperatureJSONLD */
+message Subscribe_CurrentTemperatureJSONLD_Parameters {
+}
+
+/* Responses of CurrentTemperatureJSONLD */
+message Subscribe_CurrentTemperatureJSONLD_Responses {
+  sila2.org.silastandard.String CurrentTemperatureJSONLD = 1;  /* The current temperature as measured by the controller in JSON-LD format. */
+}
+
+/* Parameters for TargetTemperatureJSONLD */
+message Subscribe_TargetTemperatureJSONLD_Parameters {
+}
+
+/* Responses of TargetTemperatureJSONLD */
+message Subscribe_TargetTemperatureJSONLD_Responses {
+  sila2.org.silastandard.String TargetTemperatureJSONLD = 1;  /* The target temperature as set by the ControlTemperature command in JSON-LD format. */
+}
+
+/* Parameters for Metadata */
+message Get_Metadata_Parameters {
+}
+
+/* Responses of Metadata */
+message Get_Metadata_Responses {
+  sila2.org.silastandard.String Metadata = 1;  /* Additional information about the temperature metadata, e.g. units, range, etc. as JSON-LD context . */
+}

@@ -1,0 +1,1216 @@
+{
+  "name": "Device-Metadata-Model",
+  "description": "LinkML Device Metadata Model.",
+  "id": "https://w3id.org/opensourcelab/device_metadata_model",
+  "version": "0.0.1",
+  "imports": [
+    "linkml:types"
+  ],
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "prefixes": [
+    {
+      "prefix_prefix": "linkml",
+      "prefix_reference": "https://w3id.org/linkml/"
+    },
+    {
+      "prefix_prefix": "sh",
+      "prefix_reference": "https://w3id.org/shacl/"
+    },
+    {
+      "prefix_prefix": "dct",
+      "prefix_reference": "http://purl.org/dc/terms/"
+    },
+    {
+      "prefix_prefix": "dcat",
+      "prefix_reference": "http://www.w3.org/ns/dcat#"
+    },
+    {
+      "prefix_prefix": "dcmi",
+      "prefix_reference": "http://purl.org/dc/dcmitype/"
+    },
+    {
+      "prefix_prefix": "dcatap",
+      "prefix_reference": "http://data.europa.eu/m8g/"
+    },
+    {
+      "prefix_prefix": "UO",
+      "prefix_reference": "http://purl.obolibrary.org/obo/UO_"
+    },
+    {
+      "prefix_prefix": "OM",
+      "prefix_reference": "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+    },
+    {
+      "prefix_prefix": "qudt",
+      "prefix_reference": "http://qudt.org/schema/qudt/"
+    },
+    {
+      "prefix_prefix": "oso",
+      "prefix_reference": "http://w3id.org/oso/"
+    }
+  ],
+  "default_prefix": "oso",
+  "default_range": "string",
+  "types": [
+    {
+      "name": "NaN",
+      "definition_uri": "http://w3id.org/oso/NaN",
+      "description": "Not-A-Number (NaN) is a numeric data type value representing an undefined or un-representable value.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"integer\"."
+      ],
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "exact_mappings": [
+        "schema:NaN",
+        "python:np.nan"
+      ],
+      "base": "float",
+      "uri": "http://www.w3.org/2001/XMLSchema#float",
+      "repr": "np.nan",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "string",
+      "definition_uri": "https://w3id.org/linkml/String",
+      "description": "A character string",
+      "notes": [
+        "In RDF serializations, a slot with range of string is treated as a literal or type xsd:string.   If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"string\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Text"
+      ],
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "integer",
+      "definition_uri": "https://w3id.org/linkml/Integer",
+      "description": "An integer",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"integer\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Integer"
+      ],
+      "base": "int",
+      "uri": "http://www.w3.org/2001/XMLSchema#integer",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "boolean",
+      "definition_uri": "https://w3id.org/linkml/Boolean",
+      "description": "A binary (true or false) value",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"boolean\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Boolean"
+      ],
+      "base": "Bool",
+      "uri": "http://www.w3.org/2001/XMLSchema#boolean",
+      "repr": "bool",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "float",
+      "definition_uri": "https://w3id.org/linkml/Float",
+      "description": "A real number that conforms to the xsd:float specification",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"float\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Float"
+      ],
+      "base": "float",
+      "uri": "http://www.w3.org/2001/XMLSchema#float",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "double",
+      "definition_uri": "https://w3id.org/linkml/Double",
+      "description": "A real number that conforms to the xsd:double specification",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"double\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "close_mappings": [
+        "schema:Float"
+      ],
+      "base": "float",
+      "uri": "http://www.w3.org/2001/XMLSchema#double",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "decimal",
+      "definition_uri": "https://w3id.org/linkml/Decimal",
+      "description": "A real number with arbitrary precision that conforms to the xsd:decimal specification",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"decimal\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "broad_mappings": [
+        "schema:Number"
+      ],
+      "base": "Decimal",
+      "uri": "http://www.w3.org/2001/XMLSchema#decimal",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "time",
+      "definition_uri": "https://w3id.org/linkml/Time",
+      "description": "A time object represents a (local) time of day, independent of any particular day",
+      "notes": [
+        "URI is dateTime because OWL reasoners do not work with straight date or time",
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"time\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Time"
+      ],
+      "base": "XSDTime",
+      "uri": "http://www.w3.org/2001/XMLSchema#time",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "date",
+      "definition_uri": "https://w3id.org/linkml/Date",
+      "description": "a date (year, month and day) in an idealized calendar",
+      "notes": [
+        "URI is dateTime because OWL reasoners don't work with straight date or time",
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"date\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Date"
+      ],
+      "base": "XSDDate",
+      "uri": "http://www.w3.org/2001/XMLSchema#date",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "datetime",
+      "definition_uri": "https://w3id.org/linkml/Datetime",
+      "description": "The combination of a date and time",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"datetime\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:DateTime"
+      ],
+      "base": "XSDDateTime",
+      "uri": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "date_or_datetime",
+      "definition_uri": "https://w3id.org/linkml/DateOrDatetime",
+      "description": "Either a date or a datetime",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"date_or_datetime\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "str",
+      "uri": "https://w3id.org/linkml/DateOrDatetime",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "uriorcurie",
+      "definition_uri": "https://w3id.org/linkml/Uriorcurie",
+      "description": "a URI or a CURIE",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"uriorcurie\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "URIorCURIE",
+      "uri": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "curie",
+      "definition_uri": "https://w3id.org/linkml/Curie",
+      "conforms_to": "https://www.w3.org/TR/curie/",
+      "description": "a compact URI",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"curie\"."
+      ],
+      "comments": [
+        "in RDF serializations this MUST be expanded to a URI",
+        "in non-RDF serializations MAY be serialized as the compact representation"
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "Curie",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "uri",
+      "definition_uri": "https://w3id.org/linkml/Uri",
+      "conforms_to": "https://www.ietf.org/rfc/rfc3987.txt",
+      "description": "a complete URI",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"uri\"."
+      ],
+      "comments": [
+        "in RDF serializations a slot with range of uri is treated as a literal or type xsd:anyURI unless it is an identifier or a reference to an identifier, in which case it is translated directly to a node"
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "close_mappings": [
+        "schema:URL"
+      ],
+      "base": "URI",
+      "uri": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "ncname",
+      "definition_uri": "https://w3id.org/linkml/Ncname",
+      "description": "Prefix part of CURIE",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"ncname\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "NCName",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "objectidentifier",
+      "definition_uri": "https://w3id.org/linkml/Objectidentifier",
+      "description": "A URI or CURIE that represents an object in the model.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"objectidentifier\"."
+      ],
+      "comments": [
+        "Used for inheritance and type checking"
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "ElementIdentifier",
+      "uri": "http://www.w3.org/ns/shex#iri",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "nodeidentifier",
+      "definition_uri": "https://w3id.org/linkml/Nodeidentifier",
+      "description": "A URI, CURIE or BNODE that represents a node in a model.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"nodeidentifier\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "NodeIdentifier",
+      "uri": "http://www.w3.org/ns/shex#nonLiteral",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "jsonpointer",
+      "definition_uri": "https://w3id.org/linkml/Jsonpointer",
+      "conforms_to": "https://datatracker.ietf.org/doc/html/rfc6901",
+      "description": "A string encoding a JSON Pointer. The value of the string MUST conform to JSON Point syntax and SHOULD dereference to a valid object within the current instance document when encoded in tree form.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"jsonpointer\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "jsonpath",
+      "definition_uri": "https://w3id.org/linkml/Jsonpath",
+      "conforms_to": "https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html",
+      "description": "A string encoding a JSON Path. The value of the string MUST conform to JSON Point syntax and SHOULD dereference to zero or more valid objects within the current instance document when encoded in tree form.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"jsonpath\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "sparqlpath",
+      "definition_uri": "https://w3id.org/linkml/Sparqlpath",
+      "conforms_to": "https://www.w3.org/TR/sparql11-query/#propertypaths",
+      "description": "A string encoding a SPARQL Property Path. The value of the string MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects within the current instance document when encoded as RDF.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"sparqlpath\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    }
+  ],
+  "slots": [
+    {
+      "name": "id",
+      "definition_uri": "http://w3id.org/oso/id",
+      "description": "\"The identifier of the resource.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://purl.org/dc/terms/identifier"
+      ],
+      "slot_uri": "http://purl.org/dc/terms/identifier",
+      "identifier": true,
+      "owner": "ServiceInfo",
+      "domain_of": [
+        "Company",
+        "DeviceClass",
+        "DeviceMetaData",
+        "ServiceInfo"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "timestamp",
+      "definition_uri": "http://w3id.org/oso/timestamp",
+      "description": "\"The timestamp of the measurement.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://purl.org/dc/terms/date"
+      ],
+      "slot_uri": "http://purl.org/dc/terms/date",
+      "owner": "ServiceInfo",
+      "domain_of": [
+        "DeviceMetaData",
+        "ServiceInfo"
+      ],
+      "range": "datetime",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "description",
+      "definition_uri": "http://w3id.org/oso/description",
+      "description": "\"A description of the calculation / measurement.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://purl.org/dc/terms/description"
+      ],
+      "slot_uri": "http://purl.org/dc/terms/description",
+      "owner": "ServiceInfo",
+      "domain_of": [
+        "DeviceMetaData",
+        "ServiceInfo"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "name",
+      "definition_uri": "http://w3id.org/oso/name",
+      "description": "\"The name of an entity or object.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/entity/Name"
+      ],
+      "slot_uri": "http://w3id.org/oso/entity/Name",
+      "owner": "DeviceClass",
+      "domain_of": [
+        "Company",
+        "DeviceClass"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "iri",
+      "definition_uri": "http://w3id.org/oso/iri",
+      "description": "\"The International Resource Identifier (IRI) of the entity.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/entity/IRI"
+      ],
+      "slot_uri": "http://w3id.org/oso/entity/IRI",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceClass",
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "manufacturer_id",
+      "definition_uri": "http://w3id.org/oso/manufacturer_id",
+      "description": "\"Unique ID of a manufacturer (MID).\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/ManufacturerID"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/ManufacturerID",
+      "owner": "Company",
+      "domain_of": [
+        "Company"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "manufacturers",
+      "definition_uri": "http://w3id.org/oso/manufacturers",
+      "description": "\"Manufacturer of the device.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/Manufacturer"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/Manufacturer",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "Company",
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "product_type",
+      "definition_uri": "http://w3id.org/oso/product_type",
+      "description": "(manufacturer) product type",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/product_type"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/product_type",
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "product_no",
+      "definition_uri": "http://w3id.org/oso/product_no",
+      "description": "manufacturer product number",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/product_no"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/product_no",
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "type_barcode",
+      "definition_uri": "http://w3id.org/oso/type_barcode",
+      "description": "barcode of the general part type, not of a specific part !!.",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/type_barcode"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/type_barcode",
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "device_class",
+      "definition_uri": "http://w3id.org/oso/device_class",
+      "description": "\"The Class / Type of the device. E.g. Gas Chromatograph, NMR. Thermometer, UV-spectrometer, MALDI-TOF-MS, HPLC, etc.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/measurement/deviceClass"
+      ],
+      "slot_uri": "http://w3id.org/oso/measurement/deviceClass",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "device_name",
+      "definition_uri": "http://w3id.org/oso/device_name",
+      "description": "\"The full name of the device.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/measurement/deviceName"
+      ],
+      "slot_uri": "http://w3id.org/oso/measurement/deviceName",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "model_name",
+      "definition_uri": "http://w3id.org/oso/model_name",
+      "description": "\"The model name of the device.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/measurement/deviceModel"
+      ],
+      "slot_uri": "http://w3id.org/oso/measurement/deviceModel",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "model_no",
+      "definition_uri": "http://w3id.org/oso/model_no",
+      "description": "model or part number (of e.g. manufacturer)",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/model_no"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/model_no",
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "device_version",
+      "definition_uri": "http://w3id.org/oso/device_version",
+      "description": "\"The version of the device.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/measurement/deviceVersion"
+      ],
+      "slot_uri": "http://w3id.org/oso/measurement/deviceVersion",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "device_serial_number",
+      "definition_uri": "http://w3id.org/oso/device_serial_number",
+      "description": "\"The serial number of the device.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/measurement/deviceSerial"
+      ],
+      "slot_uri": "http://w3id.org/oso/measurement/deviceSerial",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "part_number",
+      "definition_uri": "http://w3id.org/oso/part_number",
+      "description": "\"The part number.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/measurement/devicePartNumber"
+      ],
+      "slot_uri": "http://w3id.org/oso/measurement/devicePartNumber",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "device_pid",
+      "definition_uri": "http://w3id.org/oso/device_pid",
+      "description": "\"The persistent and unique identifier (PID) of the device.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/measurement/devicePID"
+      ],
+      "slot_uri": "http://w3id.org/oso/measurement/devicePID",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "weight",
+      "definition_uri": "http://w3id.org/oso/weight",
+      "description": "part net weight ",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/weight"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/weight",
+      "range": "float",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "energy_consumption",
+      "definition_uri": "http://w3id.org/oso/energy_consumption",
+      "description": "energy consumption in W",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/energy_consumption"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/energy_consumption",
+      "range": "float",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "spec_json",
+      "definition_uri": "http://w3id.org/oso/spec_json",
+      "description": "part specifications in JSON-LD format",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/spec_json"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/spec_json",
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "icon",
+      "definition_uri": "http://w3id.org/oso/icon",
+      "description": "XML/SVG icon/logo/drawing of the part",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/icon"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/icon",
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "image",
+      "definition_uri": "http://w3id.org/oso/image",
+      "description": "rel. path/filename to image",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/image"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/image",
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "shape",
+      "definition_uri": "http://w3id.org/oso/shape",
+      "description": "shape of Device",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/shape"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/shape",
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "resources_external",
+      "definition_uri": "http://w3id.org/oso/resources_external",
+      "description": "external resources, like literature, websites, manuals, ...",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/resources_external"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/resources_external",
+      "range": "string",
+      "multivalued": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "tags",
+      "definition_uri": "http://w3id.org/oso/tags",
+      "description": "e.g. manual",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/tag"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/tag",
+      "range": "string",
+      "multivalued": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "firmware_version",
+      "definition_uri": "http://w3id.org/oso/firmware_version",
+      "description": "\"The version of the firmware of the device.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/deviceFirmwareVersion"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/deviceFirmwareVersion",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "device_manual_url",
+      "definition_uri": "http://w3id.org/oso/device_manual_url",
+      "description": "\"An URL to the manual of the device.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/deviceManual"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/deviceManual",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "device_quick_start_guide_url",
+      "definition_uri": "http://w3id.org/oso/device_quick_start_guide_url",
+      "description": "\"An URL to the quick start guide of the device.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/deviceQuickStartGuide"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/deviceQuickStartGuide",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "device_service_manual_url",
+      "definition_uri": "http://w3id.org/oso/device_service_manual_url",
+      "description": "\"An URL to the service manual of the device.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/deviceServiceManual"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/deviceServiceManual",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "registration_number",
+      "definition_uri": "http://w3id.org/oso/registration_number",
+      "description": "\"The registration number of the device, e.g. inventory number.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/deviceRegistrationNumber"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/deviceRegistrationNumber",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "registration_barcode",
+      "definition_uri": "http://w3id.org/oso/registration_barcode",
+      "description": "\"The registration barcode of the device.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/deviceRegistrationBarcode"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/deviceRegistrationBarcode",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "purchase_date",
+      "definition_uri": "http://w3id.org/oso/purchase_date",
+      "description": "\"The date of purchase of the device.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/devicePurchaseDate"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/devicePurchaseDate",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "datetime",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "end_of_warranty_date",
+      "definition_uri": "http://w3id.org/oso/end_of_warranty_date",
+      "description": "\"The end of warranty date of the device.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/deviceEndOfWarrantyDate"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/deviceEndOfWarrantyDate",
+      "owner": "DeviceMetaData",
+      "domain_of": [
+        "DeviceMetaData"
+      ],
+      "range": "datetime",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "service_date",
+      "definition_uri": "http://w3id.org/oso/service_date",
+      "description": "\"The date of the next service.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/deviceServiceDate"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/deviceServiceDate",
+      "owner": "ServiceInfo",
+      "domain_of": [
+        "DeviceMetaData",
+        "ServiceInfo"
+      ],
+      "range": "datetime",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "service_type",
+      "definition_uri": "http://w3id.org/oso/service_type",
+      "description": "\"The type of service, e.g., calibration, maintenance, repair.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/deviceServiceType"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/deviceServiceType",
+      "owner": "ServiceInfo",
+      "domain_of": [
+        "DeviceMetaData",
+        "ServiceInfo"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "service_report",
+      "definition_uri": "http://w3id.org/oso/service_report",
+      "description": "\"An URL to the service report.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/deviceServiceReport"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/deviceServiceReport",
+      "owner": "ServiceInfo",
+      "domain_of": [
+        "DeviceMetaData",
+        "ServiceInfo"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "service_provider",
+      "definition_uri": "http://w3id.org/oso/service_provider",
+      "description": "\"The service provider, e.g. a company.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/deviceServiceProvider"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/deviceServiceProvider",
+      "owner": "ServiceInfo",
+      "domain_of": [
+        "DeviceMetaData",
+        "ServiceInfo"
+      ],
+      "range": "Company",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "orcid",
+      "definition_uri": "http://w3id.org/oso/orcid",
+      "description": "\"The Open Researcher and Contributor ID [ORCID](https://orcid.org/) of a researcher.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/entity/ORCID"
+      ],
+      "slot_uri": "http://w3id.org/oso/entity/ORCID",
+      "owner": "Person",
+      "domain_of": [
+        "Person"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "name_last",
+      "definition_uri": "http://w3id.org/oso/name_last",
+      "description": "\"The last name of the user.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/entity/lastName"
+      ],
+      "slot_uri": "http://w3id.org/oso/entity/lastName",
+      "owner": "Person",
+      "domain_of": [
+        "Person"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "name_first",
+      "definition_uri": "http://w3id.org/oso/name_first",
+      "description": "\"The first name of the user.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/entity/firstName"
+      ],
+      "slot_uri": "http://w3id.org/oso/entity/firstName",
+      "owner": "Person",
+      "domain_of": [
+        "Person"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "email",
+      "definition_uri": "http://w3id.org/oso/email",
+      "description": "\"The email address of an entity, person or company.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/entity/email"
+      ],
+      "slot_uri": "http://w3id.org/oso/entity/email",
+      "owner": "Company",
+      "domain_of": [
+        "Person",
+        "Company"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "url",
+      "definition_uri": "http://w3id.org/oso/url",
+      "description": "\"A Uniform Resource Locator (URL) of, e.g., an entity, person or company.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/entity/url"
+      ],
+      "slot_uri": "http://w3id.org/oso/entity/url",
+      "owner": "Company",
+      "domain_of": [
+        "Company"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "phone_numbers",
+      "definition_uri": "http://w3id.org/oso/phone_numbers",
+      "description": "\"A list of phone numbers.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/entity/phoneNumber"
+      ],
+      "slot_uri": "http://w3id.org/oso/entity/phoneNumber",
+      "owner": "Company",
+      "domain_of": [
+        "Person",
+        "Company"
+      ],
+      "range": "string",
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "service_engineer",
+      "definition_uri": "http://w3id.org/oso/service_engineer",
+      "description": "\"The service engineer.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "http://w3id.org/oso/device/deviceServiceEngineer"
+      ],
+      "slot_uri": "http://w3id.org/oso/device/deviceServiceEngineer",
+      "owner": "ServiceInfo",
+      "domain_of": [
+        "DeviceMetaData",
+        "ServiceInfo"
+      ],
+      "range": "Person",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    }
+  ],
+  "classes": [
+    {
+      "name": "Person",
+      "definition_uri": "http://w3id.org/oso/Person",
+      "description": "\"The User class represents a user of the SciDatS system.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "oso:entity"
+      ],
+      "slots": [
+        "name_last",
+        "name_first",
+        "email",
+        "phone_numbers",
+        "orcid"
+      ],
+      "slot_usage": {},
+      "class_uri": "http://w3id.org/oso/entity",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "Company",
+      "definition_uri": "http://w3id.org/oso/Company",
+      "description": "\"A class representing a Company, e.g., Manufacturer, Service provider.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "oso:entity/Company"
+      ],
+      "slots": [
+        "id",
+        "name",
+        "url",
+        "email",
+        "phone_numbers",
+        "manufacturer_id"
+      ],
+      "slot_usage": {},
+      "class_uri": "http://w3id.org/oso/entity/Company",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "DeviceClass",
+      "definition_uri": "http://w3id.org/oso/DeviceClass",
+      "description": "\"The Device Class / Type.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "oso:device/DeviceClass"
+      ],
+      "slots": [
+        "id",
+        "name",
+        "iri"
+      ],
+      "slot_usage": {},
+      "class_uri": "http://w3id.org/oso/device/DeviceClass",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "DeviceMetaData",
+      "definition_uri": "http://w3id.org/oso/DeviceMetaData",
+      "description": "\"The Device Metadata.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "oso:device/DeviceMetaData"
+      ],
+      "slots": [
+        "id",
+        "timestamp",
+        "description",
+        "iri",
+        "manufacturers",
+        "device_class",
+        "device_name",
+        "model_name",
+        "device_version",
+        "device_serial_number",
+        "part_number",
+        "device_pid",
+        "firmware_version",
+        "device_manual_url",
+        "device_quick_start_guide_url",
+        "device_service_manual_url",
+        "registration_number",
+        "registration_barcode",
+        "purchase_date",
+        "end_of_warranty_date",
+        "service_date",
+        "service_type",
+        "service_report",
+        "service_provider",
+        "service_engineer"
+      ],
+      "slot_usage": {},
+      "class_uri": "http://w3id.org/oso/device/DeviceMetaData",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "ServiceInfo",
+      "definition_uri": "http://w3id.org/oso/ServiceInfo",
+      "description": "\"The Service Info.\"",
+      "from_schema": "https://w3id.org/opensourcelab/device_metadata_model",
+      "mappings": [
+        "oso:device/ServiceInfo"
+      ],
+      "slots": [
+        "id",
+        "timestamp",
+        "description",
+        "service_type",
+        "service_date",
+        "service_report",
+        "service_provider",
+        "service_engineer"
+      ],
+      "slot_usage": {},
+      "class_uri": "http://w3id.org/oso/device/ServiceInfo",
+      "@type": "ClassDefinition"
+    }
+  ],
+  "metamodel_version": "1.7.0",
+  "source_file": "device_metadata_model.yaml",
+  "source_file_date": "2024-10-27T17:57:37",
+  "source_file_size": 10976,
+  "generation_date": "2024-10-27T17:58:47",
+  "@type": "SchemaDefinition",
+  "@context": [
+    "https://w3id.org/linkml/types.context.jsonld",
+    {
+      "@base": "http://w3id.org/oso/"
+    }
+  ]
+}
+

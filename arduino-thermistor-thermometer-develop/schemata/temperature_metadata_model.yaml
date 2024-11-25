@@ -1,0 +1,94 @@
+#_____________________________________________________________________
+#  :PROJECT: OpenLab
+
+#  Temperature LinkML Metadata Model 
+#  gen-pydantic temperature_metadata_model.yaml > ../arduino_thermistor_thermometer/feature_implementations/temperature_metadata_model.py
+#  gen-jsonld-context temperature_metadata_model.yaml >> ../arduino_thermistor_thermometer/feature_implementations/temperature_metadata_model.py
+#________________________________________________________________________
+
+id: https://w3id.org/Measurement/core_metadata_model
+name: Measurement-Core-Metadata-Model
+description: Measurement LinkML Core Metadata Model.
+license: https://creativecommons.org/publicdomain/zero/1.0/
+version: 0.0.1
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  sh: https://w3id.org/shacl/
+  dcat: 'http://www.w3.org/ns/dcat#'
+  dct: 'http://purl.org/dc/terms/'
+  # UO: http://purl.obolibrary.org/obo/UO_
+  # PATO: http://purl.obolibrary.org/obo/PATO_
+  OM: http://www.ontology-of-units-of-measure.org/resource/om-2/
+  qudt: http://qudt.org/schema/qudt/
+  oso: http://w3id.org/oso/
+  #measurement: http://w3id.org/oso/Measurement/
+
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: oso
+
+types:
+  NaN:
+    uri: xsd:float
+    base: float
+    description: Not-A-Number (NaN) is a numeric data type value representing an undefined or unrepresentable value.
+    notes: >-
+      If you are authoring schemas in LinkML YAML, the type is referenced with the lower case "integer".
+    exact_mappings:
+      - schema:NaN
+      - python:np.nan
+    repr: np.nan
+    
+classes:
+  TemperatureMetaData:
+    description: >-
+      "The TemperatureMetaData class represents the core metadata model for TemperatureMetaData."
+    slots:
+      - id
+      - temperature
+      - temperature-target
+      - timestamp
+      
+slots:
+  id:
+    description: >-
+      "The identifier of the resource."
+    identifier: true
+    range: string
+    required: true
+    slot_uri: http://purl.org/dc/terms/identifier
+  temperature:
+    description: >-
+      "Temperature (thermodynamic)."
+    range: float
+    unit:
+     #quantity: temperature
+     #dimension: temperature
+      ucum_code: K
+      has_quantity_kind: OM:Temperature
+    required: true
+    # ifabsent: float(np.nan)
+    slot_uri: oso:measurement/Temperature
+  temperature-target:
+    description: >-
+      "Target temperature (thermodynamic)."
+    range: float
+    unit:
+     #quantity: temperature
+     #dimension: temperature
+      ucum_code: K
+      has_quantity_kind: OM:Temperature
+    required: true
+    # ifabsent: float(np.nan)
+    slot_uri: oso:measurement/TemperatureTarget
+  timestamp:
+    description: >-
+      "The absolute date and time when this sample was measured in ISO date format and UTC as time zone."
+    range: datetime
+    required: true
+    slot_uri: oso:measurement/Timestamp
+

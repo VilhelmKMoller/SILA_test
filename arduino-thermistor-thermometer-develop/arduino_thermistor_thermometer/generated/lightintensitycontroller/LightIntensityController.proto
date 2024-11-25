@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+import "SiLAFramework.proto";
+
+package sila2.de.unigreifswald.instruments.lightintensitycontroller.v1;
+
+/* This is a simple example of a generic Feature for controlling and retrieving the LightIntensity. A new target LightIntensity can be set anytime with the 'Control LightIntensity' Command. The LightIntensity range has been limited to prevent major damages of a device. In case the first target LightIntensity has not been reached, a ControlInterrupted Error should be thrown. */
+service LightIntensityController {
+  /* 
+      Control the LightIntensity gradually to a set target.
+      It is RECOMMENDED to use an oscillation free control system.
+     */
+  rpc ControlLightIntensity (sila2.de.unigreifswald.instruments.lightintensitycontroller.v1.ControlLightIntensity_Parameters) returns (sila2.org.silastandard.CommandConfirmation) {}
+  /* Monitor the state of ControlLightIntensity */
+  rpc ControlLightIntensity_Info (sila2.org.silastandard.CommandExecutionUUID) returns (stream sila2.org.silastandard.ExecutionInfo) {}
+  /* Retrieve result of ControlLightIntensity */
+  rpc ControlLightIntensity_Result(sila2.org.silastandard.CommandExecutionUUID) returns (sila2.de.unigreifswald.instruments.lightintensitycontroller.v1.ControlLightIntensity_Responses) {}
+  /* The current Light Intensity as measured by the controller. */
+  rpc Subscribe_CurrentLightIntensity (sila2.de.unigreifswald.instruments.lightintensitycontroller.v1.Subscribe_CurrentLightIntensity_Parameters) returns (stream sila2.de.unigreifswald.instruments.lightintensitycontroller.v1.Subscribe_CurrentLightIntensity_Responses) {}
+  /* The Light Intensity as set by the ControlLightIntensity command. */
+  rpc Subscribe_TargetLightIntensity (sila2.de.unigreifswald.instruments.lightintensitycontroller.v1.Subscribe_TargetLightIntensity_Parameters) returns (stream sila2.de.unigreifswald.instruments.lightintensitycontroller.v1.Subscribe_TargetLightIntensity_Responses) {}
+  /* The current light intensity as measured by the controller in JSON-LD. */
+  rpc Subscribe_CurrentLightIntensityJSONLD (sila2.de.unigreifswald.instruments.lightintensitycontroller.v1.Subscribe_CurrentLightIntensityJSONLD_Parameters) returns (stream sila2.de.unigreifswald.instruments.lightintensitycontroller.v1.Subscribe_CurrentLightIntensityJSONLD_Responses) {}
+  /* The light intensity as set by the ControlLightIntensity command in JSON-LD format. */
+  rpc Subscribe_TargetLightIntensityJSONLD (sila2.de.unigreifswald.instruments.lightintensitycontroller.v1.Subscribe_TargetLightIntensityJSONLD_Parameters) returns (stream sila2.de.unigreifswald.instruments.lightintensitycontroller.v1.Subscribe_TargetLightIntensityJSONLD_Responses) {}
+  /* Additional information about the temperature metadata, e.g. units, range, etc. as JSON-LD context. */
+  rpc Get_Metadata (sila2.de.unigreifswald.instruments.lightintensitycontroller.v1.Get_Metadata_Parameters) returns (sila2.de.unigreifswald.instruments.lightintensitycontroller.v1.Get_Metadata_Responses) {}
+}
+
+/* Parameters for ControlLightIntensity */
+message ControlLightIntensity_Parameters {
+  sila2.org.silastandard.Real TargetLightIntensity = 1;  /* The target Light Intensity that the server will try to reach. Note that the command might be completed at a LightIntensity that it evaluates to be close enough. If the LightIntensity cannot be reached, a 'LightIntensity Not Reachable' error will be thrown. */
+}
+
+/* Responses of ControlLightIntensity */
+message ControlLightIntensity_Responses {
+}
+
+/* Parameters for CurrentLightIntensity */
+message Subscribe_CurrentLightIntensity_Parameters {
+}
+
+/* Responses of CurrentLightIntensity */
+message Subscribe_CurrentLightIntensity_Responses {
+  sila2.org.silastandard.Real CurrentLightIntensity = 1;  /* The current Light Intensity as measured by the controller. */
+}
+
+/* Parameters for TargetLightIntensity */
+message Subscribe_TargetLightIntensity_Parameters {
+}
+
+/* Responses of TargetLightIntensity */
+message Subscribe_TargetLightIntensity_Responses {
+  sila2.org.silastandard.Real TargetLightIntensity = 1;  /* The Light Intensity as set by the ControlLightIntensity command. */
+}
+
+/* Parameters for CurrentLightIntensityJSONLD */
+message Subscribe_CurrentLightIntensityJSONLD_Parameters {
+}
+
+/* Responses of CurrentLightIntensityJSONLD */
+message Subscribe_CurrentLightIntensityJSONLD_Responses {
+  sila2.org.silastandard.String CurrentLightIntensityJSONLD = 1;  /* The current light intensity as measured by the controller in JSON-LD. */
+}
+
+/* Parameters for TargetLightIntensityJSONLD */
+message Subscribe_TargetLightIntensityJSONLD_Parameters {
+}
+
+/* Responses of TargetLightIntensityJSONLD */
+message Subscribe_TargetLightIntensityJSONLD_Responses {
+  sila2.org.silastandard.String TargetLightIntensityJSONLD = 1;  /* The light intensity as set by the ControlLightIntensity command in JSON-LD format. */
+}
+
+/* Parameters for Metadata */
+message Get_Metadata_Parameters {
+}
+
+/* Responses of Metadata */
+message Get_Metadata_Responses {
+  sila2.org.silastandard.String Metadata = 1;  /* Additional information about the temperature metadata, e.g. units, range, etc. as JSON-LD context. */
+}

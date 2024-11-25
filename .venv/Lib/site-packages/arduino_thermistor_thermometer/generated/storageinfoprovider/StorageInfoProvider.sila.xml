@@ -1,0 +1,42 @@
+<Feature xmlns="http://www.sila-standard.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Category="device" FeatureVersion="1.0" MaturityLevel="Draft" Originator="de.unigreifswald.biochemie" SiLA2Version="1.0" xsi:schemaLocation="http://www.sila-standard.org https://gitlab.com/SiLA2/sila_base/raw/master/schema/FeatureDefinition.xsd">
+  <Identifier>StorageInfoProvider</Identifier>
+  <DisplayName>Storage Info Provider</DisplayName>
+  <Description>This SiLA feature provides detailed information about the storage aspects of a device, storage layout, etc.</Description>
+  <!-- Commands -->
+  <Command>
+    <Identifier>SetOutputFormat</Identifier>
+    <DisplayName>Set Output Format</DisplayName>
+    <Description>Set the output format of the device information, like TEXT, JSON-LD, XML, etc.
+            The recommended default output format is JSON-LD, which allows to provide detailed information about the device in a structured way with semantic annotations / context, referencing to defined vocabularies.</Description>
+    <Observable>No</Observable>
+    <Parameter>
+      <Identifier>OutputFormat</Identifier>
+      <DisplayName>Output Format</DisplayName>
+      <Description>Output format of the device information.</Description>
+      <DataType>
+        <Basic>String</Basic>
+      </DataType>
+    </Parameter>
+    <DefinedExecutionErrors>
+      <Identifier>OutputFormatNotSupported</Identifier>
+    </DefinedExecutionErrors>
+  </Command>
+  <!-- Properties -->
+  <!-- StorageInfo  -->
+  <Property>
+    <Identifier>SemanticStorageInfo</Identifier>
+    <DisplayName>Device Storage Information in JSON-LD</DisplayName>
+    <Description>Detailed Information about the Device Connection in a RDF serialisation format like JSON-LD.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <!-- Data Type Definitions-->
+  <!-- Defined Execution Errors-->
+  <DefinedExecutionError>
+    <Identifier>OutputFormatNotSupported</Identifier>
+    <DisplayName>Output Format Not Supported</DisplayName>
+    <Description>The output format is not supported.</Description>
+  </DefinedExecutionError>
+</Feature>

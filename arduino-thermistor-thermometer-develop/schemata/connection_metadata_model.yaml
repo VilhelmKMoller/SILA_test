@@ -1,0 +1,254 @@
+#_____________________________________________________________________
+#  :PROJECT: OpenSourceLab
+
+#  Connection Metadata Model - Device Configuration, Connection, Labware Storage Layout, etc. 
+
+#  to convert the model to a pydantic model, use:
+#    gen-pydantic connection_metadata_model.yaml > ../arduino_thermistor_thermometer/connection_metadata_model.py
+#    gen-jsonld-context connection_metadata_model.yaml > connection_metadata_model.context.jsonld
+#    gen-doc  connection_metadata_model.yaml  -d ../docs/metadata/connection 
+
+# :authors: mark doerr <mark.doerr@uni-greifswald.de>
+#________________________________________________________________________
+
+id: https://w3id.org/opensourcelab/connection_metadata_model
+name: Connection-Metadata-Model
+description: LinkML Connection Metadata Model.
+license: https://creativecommons.org/publicdomain/zero/1.0/
+version: 0.0.1
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  sh: https://w3id.org/shacl/
+  dct: http://purl.org/dc/terms/
+  dcat: http://www.w3.org/ns/dcat#
+  dcmi: http://purl.org/dc/dcmitype/
+  dcatap: http://data.europa.eu/m8g/
+  UO: http://purl.obolibrary.org/obo/UO_
+  #PATO: http://purl.obolibrary.org/obo/PATO_
+  OM: http://www.ontology-of-units-of-measure.org/resource/om-2/
+  qudt: http://qudt.org/schema/qudt/
+  oso: http://w3id.org/oso/
+
+imports:
+  - linkml:types
+
+#default_range: string
+default_prefix: oso
+
+types:
+  NaN:
+    uri: xsd:float
+    base: float
+    description: Not-A-Number (NaN) is a numeric data type value representing an undefined or un-representable value.
+    notes: >-
+      If you are authoring schemas in LinkML YAML, the type is referenced with the lower case "integer".
+    exact_mappings:
+      - schema:NaN
+      - python:np.nan
+    repr: np.nan
+    
+
+# ---- Classes ----
+classes:
+  ConnectionMetaData:
+    description: >-
+      "The Connection Metadata."
+    class_uri: oso:device/connectionMetaData
+    slots:
+      - id
+      - timestamp
+      - description
+      - iri
+      - connection
+      - configuration
+
+  Connection:
+    description: >-
+      "The Connection Descriptor."
+    class_uri: oso:device/Connection
+    slots:
+      - id
+      - timestamp
+      - description
+      - connection_type
+      - connection_address
+      - port
+      - socket
+      - bus
+      - serial_port
+      - baud_rate
+      - data_bits
+      - stop_bits
+      - parity
+      - flow_control
+      - parameters      
+
+slots:
+  id:
+    description: >-
+      "The identifier of the resource."
+    identifier: true
+    range: string
+    required: true
+    slot_uri: http://purl.org/dc/terms/identifier
+  timestamp:
+    description: >-
+      "The timestamp of the measurement."
+    range: datetime
+    #unit:
+    #   ucum_code: s
+    #    #dimension: time
+    #    #quantity: timepoint
+    #   has_quantity_kind: PATO:0000125 ## mass
+    required: true
+    #ifabsent: nan()
+    slot_uri: http://purl.org/dc/terms/date
+  description:
+    description: >-
+      "A description of the calculation / measurement."
+    range: string
+    required: false
+    slot_uri: http://purl.org/dc/terms/description
+  name:
+    description: >-
+      "The name of an entity or object."
+    range: string
+    required: true
+    slot_uri: oso:entity/Name
+  iri:
+    description: >-
+      "The International Resource Identifier (IRI) of the entity."
+    range: string
+    required: false
+    slot_uri: oso:entity/IRI
+  url:
+    description: >-
+      "A Uniform Resource Locator (URL) of, e.g., an entity, person or company."
+    range: string
+    required: false
+    slot_uri: oso:entity/url
+  configuration:
+    description: >-
+      "Extra / additional configuration of the hardware, in JSON-LD format."
+    range: string
+    required: false
+    slot_uri: oso:device/configuration
+  connection_type:
+    description: >-
+      "The type of connection, e.g., Ethernet, USB, etc."
+    range: string
+    required: false
+    slot_uri: oso:device/connectionType
+  name_dns:
+    description: >-
+      "The Domain Name System (DNS) name of the connection."
+    range: string
+    required: false
+    slot_uri: oso:device/nameDNS
+  name_mac:
+    description: >-
+      "The Media Access Control (MAC) address of the connection."
+    range: string
+    required: false
+    slot_uri: oso:device/nameMAC
+  ip4_static:
+    description: >-
+      "The static IPv4 address of the connection."
+    range: string
+    required: false
+    slot_uri: oso:device/ip4Static
+  ip6_static:
+    description: >-
+      "The static IPv6 address of the connection."
+    range: string
+    required: false
+    slot_uri: oso:device/ip6Static
+  connection_address:
+    description: >-
+      "The address of the connection."
+    range: string
+    required: false
+    slot_uri: oso:device/connectionAddress
+  port:
+    description: >-
+      "The port of the connection. (e.g., 80, 8080, etc.)"
+    range: string
+    required: false
+    slot_uri: oso:device/port
+  socket:
+    description: >-
+      "The socket of the connection."
+    range: string
+    required: false
+    slot_uri: oso:device/socket
+  bus:
+    description: >-
+      "The bus identifier of the connection."
+    range: string
+    required: false
+    slot_uri: oso:device/bus
+  serial_port:
+    description: >-
+      "The serial port of the connection."
+    range: string
+    required: false
+    slot_uri: oso:device/serialPort
+  baud_rate:
+    description: >-
+      "The baud rate of the connection."
+    range: string
+    required: false
+    slot_uri: oso:device/baudRate
+  data_bits:
+    description: >-
+      "The data bits of the connection."
+    range: string
+    required: false
+    slot_uri: oso:device/dataBits
+  stop_bits:
+    description: >-
+      "The stop bits of the connection."
+    range: string
+    required: false
+    slot_uri: oso:device/stopBits
+  parity:
+    description: >-
+      "The parity of the connection."
+    range: string
+    required: false
+    slot_uri: oso:device/parity
+  flow_control:
+    description: >-
+      "The flow control of the connection."
+    range: string
+    required: false
+    slot_uri: oso:device/flowControl
+  parameters:
+    description: >-
+      "Generic additional parameters - in JSON-LD."
+    range: string
+    required: false
+    slot_uri: oso:device/parameters
+  connection:
+    description: >-
+      "The connection descriptor, e.g., a set of connection parameters, like IP, port, bus, etc."
+    range: Connection
+    required: false
+    slot_uri: oso:device/connection
+
+  
+
+  
+
+  
+  
+    
+      
+      
+
+
+  
+  
+  
+ 

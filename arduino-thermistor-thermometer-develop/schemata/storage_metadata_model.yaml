@@ -1,0 +1,435 @@
+#_____________________________________________________________________
+#  :PROJECT: OpenSourceLab
+
+#  Storage Metadata Model - Device Configuration, Connection, Labware Storage Layout, etc. 
+
+#  to convert the model to a pydantic model, use:
+#    gen-pydantic storage_metadata_model.yaml > ../arduino_thermistor_thermometer/storage_metadata_model.py
+#    gen-jsonld-context storage_metadata_model.yaml > storage_metadata_model.context.jsonld
+#    gen-doc  storage_metadata_model.yaml  -d ../docs/metadata/storage 
+
+# :authors: mark doerr <mark.doerr@uni-greifswald.de>
+#________________________________________________________________________
+
+id: https://w3id.org/opensourcelab/storage_metadata_model
+name: Storage-Metadata-Model
+description: LinkML Storage Metadata Model.
+license: https://creativecommons.org/publicdomain/zero/1.0/
+version: 0.0.1
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  sh: https://w3id.org/shacl/
+  dct: http://purl.org/dc/terms/
+  dcat: http://www.w3.org/ns/dcat#
+  dcmi: http://purl.org/dc/dcmitype/
+  dcatap: http://data.europa.eu/m8g/
+  UO: http://purl.obolibrary.org/obo/UO_
+  #PATO: http://purl.obolibrary.org/obo/PATO_
+  OM: http://www.ontology-of-units-of-measure.org/resource/om-2/
+  qudt: http://qudt.org/schema/qudt/
+  oso: http://w3id.org/oso/
+
+imports:
+  - linkml:types
+
+#default_range: string
+default_prefix: oso
+
+types:
+  NaN:
+    uri: xsd:float
+    base: float
+    description: Not-A-Number (NaN) is a numeric data type value representing an undefined or un-representable value.
+    notes: >-
+      If you are authoring schemas in LinkML YAML, the type is referenced with the lower case "integer".
+    exact_mappings:
+      - schema:NaN
+      - python:np.nan
+    repr: np.nan
+    
+
+# ---- Classes ----
+classes:
+  StorageMetaData:
+    description: >-
+      "The Storage Metadata."
+    class_uri: oso:device/storageMetaData
+    slots:
+      - id
+      - timestamp
+      - description
+      - iri
+      - labware_min_capacity
+      - labware_max_capacity
+      - labware_max_height
+      - storage_temperature
+      - storage_humidity
+      - storage_light
+      - storage_gas
+      - num_racks
+      - racks
+      - num_labware_movers
+      - labware_movers
+      - num_labware_transfers
+      - labware_transfers
+      - num_covers
+      - covers
+      - configuration
+
+  LabwarePosition:
+    description: >-
+      "The Labware Position / location / Nest in a Rack."
+    class_uri: oso:device/Position
+    slots:
+      - id
+      - timestamp
+      - name
+      - description
+      - labware_id
+      - labware_max_height
+      - orientation
+      - occupied
+      - configuration
+
+  LabwareTransfer:
+    description: >-
+      "The Labware Transfer Station."
+    class_uri: oso:device/LabwareTransfer
+    slots:
+      - id
+      - timestamp
+      - name
+      - description
+      - labware_id
+      - occupied
+      - configuration
+
+  Cover:
+    description: >-
+      "The Cover or door of a device."
+    class_uri: oso:device/Cover
+    slots:
+      - id
+      - timestamp
+      - name
+      - is_open
+      - configuration
+
+  LabwareMover:
+    description: >-
+      "The Labware Mover / internal transport system."
+    class_uri: oso:device/LabwareMover
+    slots:
+      - id
+      - timestamp
+      - description
+      - labware_id
+      - occupied
+      - configuration
+
+  Rack:
+    description: >-
+      "The Rack / Stack - a vertically and/or horizontally arrangement of labware positions."
+    class_uri: oso:device/Rack
+    slots:
+      - id
+      - timestamp
+      - description
+      - labware_positions
+      - num_cols
+      - num_rows
+      - num_layers
+      - labware_min_capacity
+      - labware_max_capacity
+      - labware_max_height
+      - is_shaker
+      - min_shaking_frequency
+      - max_shaking_frequency
+      - target_shaking_frequency
+      - is_shaking
+      - shaking_required
+      - configuration
+
+slots:
+  id:
+    description: >-
+      "The identifier of the resource."
+    identifier: true
+    range: string
+    required: true
+    slot_uri: http://purl.org/dc/terms/identifier
+  timestamp:
+    description: >-
+      "The timestamp of the measurement."
+    range: datetime
+    #unit:
+    #   ucum_code: s
+    #    #dimension: time
+    #    #quantity: timepoint
+    #   has_quantity_kind: PATO:0000125 ## mass
+    required: true
+    #ifabsent: nan()
+    slot_uri: http://purl.org/dc/terms/date
+  description:
+    description: >-
+      "A description of the calculation / measurement."
+    range: string
+    required: false
+    slot_uri: http://purl.org/dc/terms/description
+  name:
+    description: >-
+      "The name of an entity or object."
+    range: string
+    required: true
+    slot_uri: oso:entity/Name
+  iri:
+    description: >-
+      "The International Resource Identifier (IRI) of the entity."
+    range: string
+    required: false
+    slot_uri: oso:entity/IRI
+  url:
+    description: >-
+      "A Uniform Resource Locator (URL) of, e.g., an entity, person or company."
+    range: string
+    required: false
+    slot_uri: oso:entity/url
+  configuration:
+    description: >-
+      "Extra / additional configuration of the hardware, in JSON-LD format."
+    range: string
+    required: false
+    slot_uri: oso:device/configuration
+
+  storage_temperature:
+    description: >-
+      "The storage temperature."
+    range: float
+    unit:
+      ucum_code: K
+      has_quantity_kind: OM:Temperature
+    required: false
+    slot_uri: oso:device/storageTemperature
+
+  storage_humidity:
+    description: >-
+      "The storage humidity."
+    range: float
+    unit:
+      #ucum_code: %RH
+      has_quantity_kind: OM:RelativeHumidity
+    required: false
+    slot_uri: oso:device/storageHumidity
+
+  storage_light:
+    description: >-
+      "The storage light."
+    range: float
+    unit:
+      ucum_code: lx
+      has_quantity_kind: OM:LuminousIntensity
+    required: false
+    slot_uri: oso:device/storageLight
+
+  storage_gas:
+    description: >-
+      "The storage gas."
+    range: string
+    required: false
+    slot_uri: oso:device/storageGas
+  num_cols:
+    description: >-
+      "The number of columns in the rack."
+    range: integer
+    required: false
+    slot_uri: oso:device/numCols
+  num_rows:
+    description: >-
+      "The number of rows in the rack."
+    range: integer
+    required: false
+    slot_uri: oso:device/numRows
+  num_layers:
+    description: >-
+      "The number of layers in the rack."
+    range: integer
+    required: false
+    slot_uri: oso:device/numLayers
+  num_racks:
+    description: >-
+      "The number of racks / stacks in the storage unit."
+    range: integer
+    required: false
+    slot_uri: oso:device/numRacks
+
+  labware_min_capacity:
+    range: integer
+    required: False
+    slot_uri: oso:device/labware_min_capacity
+    description: "labware capacity, min. number of labware, some centrifuges need at least 2 labware, e.g. for balancing"
+  labware_max_capacity:
+    range: integer
+    required: False
+    slot_uri: oso:device/labware_max_capacity
+    description: "labware capacity, max. number of labware"
+  labware_max_height:
+    range: float
+    required: False
+    slot_uri: oso:device/labware_max_height
+    description: "max. labware height in m"
+
+  num_labware_transfers:
+    description: >-
+      "The number of transfer stations in the storage unit."
+    range: integer
+    required: false
+    slot_uri: oso:device/numTransferStations
+
+  num_labware_movers:
+    description: >-
+      "The number of labware movers in the storage unit."
+    range: integer
+    required: false
+    slot_uri: oso:device/numLabwareMovers
+
+  num_covers:
+    description: >-
+      "The number of covers / doors in the storage unit."
+    range: integer
+    required: false
+    slot_uri: oso:device/numCovers
+
+  orientation:
+    description: >-
+      "The orientation of the labware in a position, e.g. landscape / portrait."
+    range: string
+    required: false
+    slot_uri: oso:device/orientation
+
+  occupied:
+    description: >-
+      "True if the position is occupied."
+    range: boolean
+    required: false
+    slot_uri: oso:device/occupied
+
+  is_open:
+    description: >-
+      "True if the cover / door is open."
+    range: boolean
+    required: false
+    slot_uri: oso:device/isOpen
+
+  labware_id:
+    description: >-
+      "A unique identifier of the labware."
+    range: string
+    required: false
+    slot_uri: oso:device/labwareID
+
+  labware_positions:
+    description: >-
+      "The labware positions / locations / nests in the rack."
+    range: LabwarePosition
+    required: false
+    slot_uri: oso:device/positions
+
+  is_shaker:
+    description: >-
+      "True if the rack is a shaker."
+    range: boolean
+    required: false
+    slot_uri: oso:device/isShaker
+
+  is_shaking:
+    description: >-
+      "True if the rack is shaking."
+    range: boolean
+    required: false
+    slot_uri: oso:device/isShaking
+
+  shaking_required:
+    description: >-
+      "True if shaking is required."
+    range: boolean
+    required: false
+    slot_uri: oso:device/shakingRequired
+
+  min_shaking_frequency:
+    description: >-
+      "The minimum shaking frequency."
+    range: float
+    unit:
+      ucum_code: Hz
+      has_quantity_kind: OM:Frequency
+    required: false
+    slot_uri: oso:device/minShakingFrequency
+  
+  max_shaking_frequency:
+    description: >-
+      "The maximum shaking frequency."
+    range: float
+    unit:
+      ucum_code: Hz
+      has_quantity_kind: OM:Frequency
+    required: false
+    slot_uri: oso:device/maxShakingFrequency
+  
+  target_shaking_frequency:
+    description: >-
+      "The target shaking frequency."
+    range: float
+    unit:
+      ucum_code: Hz
+      has_quantity_kind: OM:Frequency
+    required: false
+    slot_uri: oso:device/targetShakingFrequency
+
+  racks:
+    description: >-
+      "The racks in the storage unit."
+    range: Rack
+    required: false
+    slot_uri: oso:device/racks
+    multivalued: true
+
+  labware_transfers:
+    description: >-
+      "The labware transfer stations."
+    range: LabwareTransfer
+    required: false
+    slot_uri: oso:device/labwareTransfers
+    multivalued: true
+
+  labware_movers:
+    description: >-
+      "The labware movers."
+    range: LabwareMover
+    required: false
+    slot_uri: oso:device/labwareMovers
+    multivalued: true
+
+  covers:
+    description: >-
+      "The covers / doors."
+    range: Cover
+    required: false
+    slot_uri: oso:device/covers
+    multivalued: true
+
+  
+
+  
+
+  
+  
+    
+      
+      
+
+
+  
+  
+  
+ 

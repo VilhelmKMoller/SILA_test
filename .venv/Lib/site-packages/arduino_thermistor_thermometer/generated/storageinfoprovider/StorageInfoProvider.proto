@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+import "SiLAFramework.proto";
+
+package sila2.de.unigreifswald.biochemie.device.storageinfoprovider.v1;
+
+/* This SiLA feature provides detailed information about the storage aspects of a device, storage layout, etc. */
+service StorageInfoProvider {
+  /* Set the output format of the device information, like TEXT, JSON-LD, XML, etc. The recommended default output format is JSON-LD, which allows to provide detailed information about the device in a structured way with semantic annotations / context, referencing to defined vocabularies. */
+  rpc SetOutputFormat (sila2.de.unigreifswald.biochemie.device.storageinfoprovider.v1.SetOutputFormat_Parameters) returns (sila2.de.unigreifswald.biochemie.device.storageinfoprovider.v1.SetOutputFormat_Responses) {}
+  /* 
+            Detailed Information about the Device Connection in a RDF serialisation format like JSON-LD.
+         */
+  rpc Get_SemanticStorageInfo (sila2.de.unigreifswald.biochemie.device.storageinfoprovider.v1.Get_SemanticStorageInfo_Parameters) returns (sila2.de.unigreifswald.biochemie.device.storageinfoprovider.v1.Get_SemanticStorageInfo_Responses) {}
+}
+
+/* Parameters for SetOutputFormat */
+message SetOutputFormat_Parameters {
+  sila2.org.silastandard.String OutputFormat = 1;  /* Output format of the device information. */
+}
+
+/* Responses of SetOutputFormat */
+message SetOutputFormat_Responses {
+}
+
+/* Parameters for SemanticStorageInfo */
+message Get_SemanticStorageInfo_Parameters {
+}
+
+/* Responses of SemanticStorageInfo */
+message Get_SemanticStorageInfo_Responses {
+  sila2.org.silastandard.String SemanticStorageInfo = 1;  /* Detailed Information about the Device Connection in a RDF serialisation format like JSON-LD. */
+}

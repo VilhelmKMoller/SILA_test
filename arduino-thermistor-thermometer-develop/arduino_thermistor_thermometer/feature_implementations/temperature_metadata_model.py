@@ -1,0 +1,159 @@
+from __future__ import annotations 
+from datetime import (
+    datetime,
+    date,
+    time
+)
+from decimal import Decimal 
+from enum import Enum 
+import re
+import sys
+from typing import (
+    Any,
+    ClassVar,
+    List,
+    Literal,
+    Dict,
+    Optional,
+    Union
+)
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    RootModel,
+    field_validator
+)
+metamodel_version = "None"
+version = "0.0.1"
+
+
+class ConfiguredBaseModel(BaseModel):
+    model_config = ConfigDict(
+        validate_assignment = True,
+        validate_default = True,
+        extra = "forbid",
+        arbitrary_types_allowed = True,
+        use_enum_values = True,
+        strict = False,
+    )
+    pass
+
+
+
+
+class LinkMLMeta(RootModel):
+    root: Dict[str, Any] = {}
+    model_config = ConfigDict(frozen=True)
+
+    def __getattr__(self, key:str):
+        return getattr(self.root, key)
+
+    def __getitem__(self, key:str):
+        return self.root[key]
+
+    def __setitem__(self, key:str, value):
+        self.root[key] = value
+
+    def __contains__(self, key:str) -> bool:
+        return key in self.root
+
+
+linkml_meta = LinkMLMeta({'default_prefix': 'oso',
+     'default_range': 'string',
+     'description': 'Measurement LinkML Core Metadata Model.',
+     'id': 'https://w3id.org/Measurement/core_metadata_model',
+     'imports': ['linkml:types'],
+     'license': 'https://creativecommons.org/publicdomain/zero/1.0/',
+     'name': 'Measurement-Core-Metadata-Model',
+     'prefixes': {'OM': {'prefix_prefix': 'OM',
+                         'prefix_reference': 'http://www.ontology-of-units-of-measure.org/resource/om-2/'},
+                  'dcat': {'prefix_prefix': 'dcat',
+                           'prefix_reference': 'http://www.w3.org/ns/dcat#'},
+                  'dct': {'prefix_prefix': 'dct',
+                          'prefix_reference': 'http://purl.org/dc/terms/'},
+                  'linkml': {'prefix_prefix': 'linkml',
+                             'prefix_reference': 'https://w3id.org/linkml/'},
+                  'oso': {'prefix_prefix': 'oso',
+                          'prefix_reference': 'http://w3id.org/oso/'},
+                  'qudt': {'prefix_prefix': 'qudt',
+                           'prefix_reference': 'http://qudt.org/schema/qudt/'},
+                  'sh': {'prefix_prefix': 'sh',
+                         'prefix_reference': 'https://w3id.org/shacl/'}},
+     'source_file': 'temperature_metadata_model.yaml',
+     'types': {'NaN': {'base': 'float',
+                       'description': 'Not-A-Number (NaN) is a numeric data type '
+                                      'value representing an undefined or '
+                                      'unrepresentable value.',
+                       'exact_mappings': ['schema:NaN', 'python:np.nan'],
+                       'from_schema': 'https://w3id.org/Measurement/core_metadata_model',
+                       'name': 'NaN',
+                       'notes': ['If you are authoring schemas in LinkML YAML, the '
+                                 'type is referenced with the lower case '
+                                 '"integer".'],
+                       'repr': 'np.nan',
+                       'uri': 'xsd:float'}}} )
+
+
+class TemperatureMetaData(ConfiguredBaseModel):
+    """
+    \"The TemperatureMetaData class represents the core metadata model for TemperatureMetaData.\"
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/Measurement/core_metadata_model'})
+
+    id: str = Field(..., description="""\"The identifier of the resource.\"""", json_schema_extra = { "linkml_meta": {'alias': 'id',
+         'domain_of': ['TemperatureMetaData'],
+         'slot_uri': 'http://purl.org/dc/terms/identifier'} })
+    temperature: float = Field(..., description="""\"Temperature (thermodynamic).\"""", json_schema_extra = { "linkml_meta": {'alias': 'temperature',
+         'domain_of': ['TemperatureMetaData'],
+         'slot_uri': 'oso:measurement/Temperature',
+         'unit': {'has_quantity_kind': 'OM:Temperature', 'ucum_code': 'K'}} })
+    temperature_target: float = Field(..., description="""\"Target temperature (thermodynamic).\"""", json_schema_extra = { "linkml_meta": {'alias': 'temperature_target',
+         'domain_of': ['TemperatureMetaData'],
+         'slot_uri': 'oso:measurement/TemperatureTarget',
+         'unit': {'has_quantity_kind': 'OM:Temperature', 'ucum_code': 'K'}} })
+    timestamp: datetime  = Field(..., description="""\"The absolute date and time when this sample was measured in ISO date format and UTC as time zone.\"""", json_schema_extra = { "linkml_meta": {'alias': 'timestamp',
+         'domain_of': ['TemperatureMetaData'],
+         'slot_uri': 'oso:measurement/Timestamp'} })
+
+
+# Model rebuild
+# see https://pydantic-docs.helpmanual.io/usage/models/#rebuilding-a-model
+TemperatureMetaData.model_rebuild()
+
+jsonld_context = """
+{
+   "comments": {
+      "description": "Auto generated by LinkML jsonld context generator",
+      "generation_date": "2024-09-23T12:19:35",
+      "source": "temperature_metadata_model.yaml"
+   },
+   "@context": {
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "OM": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "dcat": "http://www.w3.org/ns/dcat#",
+      "dct": "http://purl.org/dc/terms/",
+      "linkml": "https://w3id.org/linkml/",
+      "oso": "http://w3id.org/oso/",
+      "qudt": "http://qudt.org/schema/qudt/",
+      "sh": "https://w3id.org/shacl/",
+      "@vocab": "http://w3id.org/oso/",
+      "id": "@id",
+      "temperature": {
+         "@type": "xsd:float",
+         "@id": "measurement/Temperature"
+      },
+      "temperature_target": {
+         "@type": "xsd:float",
+         "@id": "measurement/TemperatureTarget"
+      },
+      "timestamp": {
+         "@type": "xsd:dateTime",
+         "@id": "measurement/Timestamp"
+      },
+      "TemperatureMetaData": {
+         "@id": "TemperatureMetaData"
+      }
+   }
+}
+"""
