@@ -16,7 +16,7 @@
 Adafruit_MAX31855 thermocouple(MAXCLK, MAXCS, MAXDO);
  
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(9600); // changed from standard
  
   while (!Serial) delay(1); // wait for Serial on Leonardo/Zero, etc
  
@@ -35,7 +35,7 @@ void setup() {
  
 void loop() {
    // read out temp
-   double T = thermocouple.readCelsius();
+   float  T = thermocouple.readCelsius(); // changed from double to flaot
    if (isnan(T)) {
      Serial.println("Thermocouple fault(s) detected!");
      uint8_t e = thermocouple.readError();

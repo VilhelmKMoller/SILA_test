@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <!-- The COM port to be used for the RS232 communication -->
+  <Parameter parameterType="String" name="PortName">
+    <String>COM1</String>
+  </Parameter>
+
+  <!-- Name and location of the license file -->
+  <Parameter parameterType="String" name="LicenseFile">
+    <String>license_file.lic</String>
+  </Parameter>
+
+  <!-- The shake speed to be used if no speed is specified (in RPM) -->
+  <Parameter parameterType="Int32" name="DefaultShakeSpeed">
+    <Int32>500</Int32>
+  </Parameter>
+
+</ParameterSet>
