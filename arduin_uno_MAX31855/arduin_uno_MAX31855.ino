@@ -14,7 +14,9 @@
  
 // initialize the Thermocouple
 Adafruit_MAX31855 thermocouple(MAXCLK, MAXCS, MAXDO);
- 
+
+float Vrand;
+
 void setup() {
   Serial.begin(9600); // changed from standard
  
@@ -34,6 +36,10 @@ void setup() {
 }
  
 void loop() {
+
+  // random insertd data for light intensity:
+  Vrand = random(0, 10);
+  
    // read out temp
    float  T = thermocouple.readCelsius(); // changed from double to flaot
    if (isnan(T)) {
@@ -45,7 +51,9 @@ void loop() {
    } else {
      Serial.print("T:");
      Serial.print(T);
-     Serial.println(",");
+     Serial.print(",");
+     Serial.print("L:");
+     Serial.println(Vrand);
 
    }
  

@@ -12,6 +12,7 @@ A simple Arduino / Teensy based thermistor thermometer with SiLA control.
 
     # starting the thermometer SiLA server (example, please adust the serial port)
     python -m arduino_thermistor_thermometer --debug --server-name thermistor_thermometer --insecure --serial-port /dev/ttyACM0
+    python -m arduino_thermistor_thermometer --debug --server-name thermistor_thermometer --insecure --serial-port COM5
 
 
 ## Help
