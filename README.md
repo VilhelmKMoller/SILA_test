@@ -22,12 +22,26 @@ python -m pip install .[dev]
 Install packages:
 pip install pyserial
 pip install pydantic
+pip install grpcio>=1.68.0
 
-Run server:
+
+# Run arduino thermistor:
 python -m arduino_thermistor_thermometer --debug --server-name thermistor_thermometer --insecure --serial-port COM5
 
+# run bioshaker:
+python -m sila2_driver.qinstruments.bioshake_qx --port 50050
+
+# Sila browser 
+
+cd sila-browser
+npm run preview 
 
 # open questions 
 
 How do i see the data in jupyter notebook
 How can i use unitelab
+
+# first_connector
+Following unitelabs intro to connector:
+https://docs-unitelabs-web-815d69b03b66df4c3a4817af38d7e7b09a17f7c4b50b.gitlab.io/connectivity/introduction/installation
+
